@@ -13,10 +13,19 @@ just test this file's functions once you're on the EC2 box).
 import os
 import boto3
 from botocore.exceptions import ClientError
+from botocore.config import Config
 
 from config import AWS_REGION
 
-_s3 = boto3.client("s3", region_name=AWS_REGION)
+# Pin the regional endpoint and SigV4 signing. Without this, presigned links
+# point at the global s3.amazonaws.com host and S3 answers with a
+# TemporaryRedirect instead of the file.
+_s3 = boto3.client(
+    "s3",
+    region_name=AWS_REGION,
+    endpoint_url=f"https://s3.{AWS_REGION}.amazonaws.com",
+    config=Config(signature_version="s3v4", s3={"addressing_style": "virtual"}),
+)
 
 
 def upload_file(local_path: str, bucket: str, s3_key: str) -> str:

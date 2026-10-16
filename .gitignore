@@ -38,3 +38,8 @@ test_images/
 *.ply
 *.ckpt
 __pycache__/
+
+uploads/
+processing/
+metadata/
+.vscode/

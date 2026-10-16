@@ -3,6 +3,7 @@ from database import Asset, Scan, SessionLocal
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from routes.upload import router as upload_router
+from routes.metadata import router as metadata_router
 from config import S3_BUCKET_SPLAT_OUTPUTS
 from workers.s3_utils import generate_presigned_url
 
@@ -10,6 +11,7 @@ app = FastAPI(title="Immverse Room Scan API")
 
 # Include the file upload endpoint route
 app.include_router(upload_router)
+app.include_router(metadata_router)
 
 class CreateScanRequest(BaseModel):
   device_name: str

@@ -4,7 +4,6 @@ from sqlalchemy import Column, DateTime, ForeignKey, ForeignKey, Integer, String
 from sqlalchemy.orm import declarative_base, sessionmaker  # <-- Updated import here
 
 # Database connection URL pointing to your Docker PostgreSQL container
-# DATABASE_URL = "postgresql://postgres:dev123@localhost:5432/postgres"
 from config import DATABASE_URL  # Import the DATABASE_URL from config.py
 
 engine = create_engine(DATABASE_URL)
